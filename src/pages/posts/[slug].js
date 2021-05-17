@@ -83,7 +83,7 @@ const PostPage = ({data}) => {
   )
 }
 
-export async function unstable_getStaticProps({ params }) {
+export async function getStaticProps({ params }) {
   try {
     const {slug} = params
     const res = await TakeShape.graphql({query: postQuery(slug)})
@@ -101,7 +101,7 @@ export async function unstable_getStaticProps({ params }) {
   }
 }
 
-export async function unstable_getStaticPaths() {
+export async function getStaticPaths() {
   try {
     const res = await TakeShape.graphql({query: postSlugsQuery})
     const json = await res.json()

@@ -65,7 +65,7 @@ const AuthorPage = ({data}) => {
   )
 }
 
-export async function unstable_getStaticProps({ params }) { 
+export async function getStaticProps({ params }) {
   try {
     const {slug} = params
     const res = await TakeShape.graphql({query: authorQuery(slug)})
@@ -83,7 +83,7 @@ export async function unstable_getStaticProps({ params }) {
   }
 }
 
-export async function unstable_getStaticPaths() {
+export async function getStaticPaths() {
   try {
     const res = await TakeShape.graphql({query: authorSlugsQuery})
     const json = await res.json()
