@@ -93,7 +93,7 @@ export async function getStaticPaths() {
     const authors = data.authors.items
 
 	const output = {
-		paths: authors.map(author => author.slug),
+		paths: authors.map(author => {slug: author.slug}),
 		fallback: false
 	};
 	console.log(output)

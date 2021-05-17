@@ -110,7 +110,7 @@ export async function getStaticPaths() {
     const posts = data.posts.items
 
 	const output = {
-		paths: posts.map(post => post.slug),
+		paths: posts.map(post => {slug: post.slug}),
 		fallback: false
 	};
 	console.log(output)
