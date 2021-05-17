@@ -1,0 +1,1 @@
+{"schemaPath":"takeshape-project.graphql","includes":["**/*.graphql"],"excludes":["node_modules/**/*.graphql"],"extensions":{"endpoints":{"TakeShape":{"url":"https://api.takeshape.io/project/1be37c78-70ec-4f2d-9c97-625e51f9ab91/v3/graphql","headers":{"Content-Type":"application/json","Authorization":"Bearer 0fd4604064684d908def09530bd2ee6e"},"introspect":true}}}}
