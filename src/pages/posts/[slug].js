@@ -105,6 +105,7 @@ export async function getStaticPaths() {
   try {
     const res = await TakeShape.graphql({query: postSlugsQuery})
     const json = await res.json()
+	console.log(json)
     if (json.errors) throw json.errors
     const data = json.data
     const posts = data.posts.items
