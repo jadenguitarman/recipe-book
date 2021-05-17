@@ -91,9 +91,13 @@ export async function getStaticPaths() {
     if (json.errors) throw json.errors
     const data = json.data
     const authors = data.authors.items
-    return authors.reduce((pages, author) => pages.concat({
-      params: {slug: author.slug}
-    }), [])
+
+	const output = {
+		paths: authors.map(author => author.slug),
+		fallback: false
+	};
+	console.log(output)
+	return output
   } catch (error) {
     console.error(error)
     return error
