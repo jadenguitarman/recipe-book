@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import Link from 'next/link';
 import format from 'date-fns/format';
 import TakeShape from '../../providers/takeshape';
-import theme from './post-list-item.module.css';
+import theme from './recipe-list-item.module.css';
 
-const PostListItem = (props) => {
+const RecipeListItem = (props) => {
   const {
     featureImage,
     title,
@@ -15,7 +15,7 @@ const PostListItem = (props) => {
   const date = new Date(_enabledAt)
   return (
     <li>
-      <Link href="/posts/[slug]" as={`/posts/${slug}`}>
+      <Link href="/recipes/[slug]" as={`/recipes/${slug}`}>
         <a className={theme.tout}>
           <div>
             {featureImage &&
@@ -35,4 +35,4 @@ const PostListItem = (props) => {
   )
 }
 
-export default PostListItem
+export default RecipeListItem

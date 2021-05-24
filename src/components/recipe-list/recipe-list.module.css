@@ -1,9 +1,9 @@
-/* Post List */
-.postList {
+/* Recipe List */
+.recipeList {
   margin: 8rem 0;
 }
 
-.postList li + li {
+.recipeList li + li {
   margin-top: 6rem;
 }
 
@@ -21,7 +21,7 @@
   align-items: center;
 }
 
-.pagination .posts {
+.pagination .recipes {
   display: flex;
 }
 

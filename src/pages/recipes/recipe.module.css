@@ -1,14 +1,14 @@
-/* Post Header */
-.postHeader {
+/* Recipe Header */
+.recipeHeader {
   margin: 8rem 0 4.8rem;
 }
 
-.postHeaderContent {
+.recipeHeaderContent {
   position: relative;
   padding-bottom: 2.4rem;
 }
 
-.postHeaderContent::after {
+.recipeHeaderContent::after {
   content: "";
   position: absolute;
   bottom: -0.4rem;
@@ -20,6 +20,6 @@
   border-bottom: 1px solid #442ab9;
 }
 
-.postHeaderContent h2 {
+.recipeHeaderContent h2 {
   max-width: 56rem;
 }

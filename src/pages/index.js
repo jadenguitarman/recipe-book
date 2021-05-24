@@ -4,13 +4,13 @@ import Link from 'next/link'
 import cx from 'classnames'
 import fetch from 'isomorphic-fetch'
 import TakeShape from '../providers/takeshape'
-import PostList from '../components/post-list'
+import RecipeList from '../components/recipe-list'
 import baseTheme from '../base.module.css';
 import theme from './homepage.module.css';
 
 const HomePage = (props) => {
-	const {hero, posts} = props
-	if (!hero || !posts) {
+	const {hero, recipes} = props
+	if (!hero || !recipes) {
 		/* We return Next's built in Error handler in lieu of
 		developing a custom component ourselves. */
 		return <Error statusCode="500" />
@@ -24,14 +24,14 @@ const HomePage = (props) => {
     <React.Fragment>
       <div className={theme.hero} style={{backgroundImage: `url(${heroImageSrc})`}}>
         <div className={cx(theme.heroContainer, baseTheme.container)}>
-          {hero.featuredPost &&
+          {hero.featuredRecipe &&
           <div className={theme.feature}>
-            <Link href="/posts/[slug]" as={`/posts/${hero.featuredPost.slug}`}>
+            <Link href="/recipes/[slug]" as={`/recipes/${hero.featuredRecipe.slug}`}>
             	<a>
-	              <p>Featured Post</p>
+	              <p>Featured Recipe</p>
 
-	              <h2>{hero.featuredPost.title}</h2>
-	              <p>by {hero.featuredPost.author.name}</p>
+	              <h2>{hero.featuredRecipe.title}</h2>
+	              <p>by {hero.featuredRecipe.author.name}</p>
               </a>
             </Link>
           </div>
@@ -41,15 +41,15 @@ const HomePage = (props) => {
 
       <section>
         <header className={baseTheme.header}>
-          <h2>Recent Posts</h2>
+          <h2>Recent Recipes</h2>
         </header>
 
-        <PostList posts={posts}/>
+        <RecipeList recipes={recipes}/>
 
         <div className={baseTheme.buttonContainer}>
-          <Link href="/posts">
+          <Link href="/recipes">
           	<a className={baseTheme.button}>
-          		View all posts
+          		View all recipes
           	</a>
           </Link>
         </div>
@@ -66,7 +66,7 @@ export const homePageQuery = `
 	      image {
 	        path
 	      }
-	      featuredPost {
+	      featuredRecipe {
 	      	_id
 	        title
 	        slug
@@ -77,7 +77,7 @@ export const homePageQuery = `
 	      }
 	    }
 	  }
-	  posts: getPostList {
+	  recipes: getRecipeList {
 	    total
 	    items {
 	    	_id
@@ -102,7 +102,7 @@ export async function getStaticProps() {
 		return {
 			props: {
 				hero: data.page.hero,
-  			posts: data.posts.items.slice(0, 3)
+  			recipes: data.recipes.items.slice(0, 3)
   		}
 		}
 	} catch (error) {

@@ -6,11 +6,11 @@ import format from 'date-fns/format'
 import TakeShape from '../../providers/takeshape'
 import HtmlContent from '../../components/content'
 import baseTheme from '../../base.module.css'
-import theme from './post.module.css'
+import theme from './recipe.module.css'
 
-export const postQuery = (slug) => `
+export const recipeQuery = (slug) => `
   query {
-    posts: getPostList(filter: {term: {slug: "${slug}"}}) {
+    recipes: getRecipeList(filter: {term: {slug: "${slug}"}}) {
       total
       items {
         _id
@@ -35,9 +35,9 @@ export const postQuery = (slug) => `
   }
 `
 
-export const postSlugsQuery = `
+export const recipeSlugsQuery = `
   query {
-    posts: getPostList(sort: [{field: "_enabledAt", order: "desc"}]) {
+    recipes: getRecipeList(sort: [{field: "_enabledAt", order: "desc"}]) {
       items {
         slug
       }
@@ -45,10 +45,10 @@ export const postSlugsQuery = `
   }
 `
 
-const PostPage = ({data}) => {
+const RecipePage = ({data}) => {
   if (!data || data.errors) {
     return <Error statusCode={500} />
-  } else if (data.posts.total < 1) {
+  } else if (data.recipes.total < 1) {
     return <Error statusCode={404} />
   }
   const {
@@ -58,17 +58,17 @@ const PostPage = ({data}) => {
     tags,
     author,
     bodyHtml
-  } = data.posts.items[0];
+  } = data.recipes.items[0];
   const date = new Date(_enabledAt)
   return (
     <Fragment>
       <Head>
-        <title key="title">{title} / Posts / Shape Blog</title>
+        <title key="title">{title} / Recipes / Shape Blog</title>
         <meta key="description" name="description" content={deck} />
       </Head>
-      <header className={theme.postHeader}>
+      <header className={theme.recipeHeader}>
         <div className={baseTheme.container}>
-          <div className={theme.postHeaderContent}>
+          <div className={theme.recipeHeaderContent}>
             <h2>{title}</h2>
             <p><Link href="/author/[slug]" as={`/author/${author.slug}`}><a>By {author.name}</a></Link></p>
             <p>{format(date, 'MMMM d, yyyy')}</p>
@@ -86,7 +86,7 @@ const PostPage = ({data}) => {
 export async function getStaticProps({ params }) {
   try {
     const {slug} = params
-    const res = await TakeShape.graphql({query: postQuery(slug)})
+    const res = await TakeShape.graphql({query: recipeQuery(slug)})
     const json = await res.json()
     if (json.errors) throw json.errors
     const data = json.data
@@ -103,14 +103,14 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   try {
-    const res = await TakeShape.graphql({query: postSlugsQuery})
+    const res = await TakeShape.graphql({query: recipeSlugsQuery})
     const json = await res.json()
     if (json.errors) throw json.errors
     const data = json.data
-    const posts = data.posts.items
+    const recipes = data.recipes.items
 
 	return {
-		paths: posts.map(post => ({params: {slug: post.slug}})),
+		paths: recipes.map(recipe => ({params: {slug: recipe.slug}})),
 		fallback: false
 	};
   } catch (error) {
@@ -119,4 +119,4 @@ export async function getStaticPaths() {
   }
 }
 
-export default PostPage
+export default RecipePage
