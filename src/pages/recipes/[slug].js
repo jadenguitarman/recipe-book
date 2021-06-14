@@ -78,18 +78,14 @@ const RecipePage = ({data}) => {
   let blogPostHTML = unified()
 	.use(remarkMarkdown)
 	.use(remarkReact)
-	.processSync(blogPost, err => {
-	  if (err) throw err
-	  return "<p>md didn't parse</p>"
-	})
+	.processSync(blogPost)
+	.result
 
   let recipeHTML = unified()
   	.use(remarkMarkdown)
   	.use(remarkReact)
-  	.processSync(blogPost, err => {
-  	  if (err) throw err
-  	  return "<p>md didn't parse</p>"
-  	})
+  	.processSync(recipe)
+	.result
 
   return (
     <Fragment>
