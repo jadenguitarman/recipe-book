@@ -75,18 +75,18 @@ const RecipePage = ({data}) => {
   const bodyHTML = `<div>HELLO WORLD</div>`;
 
 
-  blogPostHTML = unified()
+  let blogPostHTML = unified()
 	.use(markdown)
 	.use(html)
-	.process(blogPost, err => {
+	.processSync(blogPost, err => {
 	  if (err) throw err
 	  return "md didn't parse"
 	})
 
-  recipeHTML = unified()
+  let recipeHTML = unified()
   	.use(markdown)
   	.use(html)
-  	.process(blogPost, err => {
+  	.processSync(blogPost, err => {
   	  if (err) throw err
   	  return "md didn't parse"
   	})
