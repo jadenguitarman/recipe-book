@@ -6,7 +6,7 @@ import baseTheme from '../../base.module.css'
 
 export const recipeListQuery = `
 	query {
-	  recipes: getRecipeList(filter: {term: {slug: "${slug}"}}) {
+	  recipes: getRecipeList() {
 		  items {
 			  _enabledAt
 			  author {
