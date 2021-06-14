@@ -23,3 +23,29 @@
 .recipeHeaderContent h2 {
   max-width: 56rem;
 }
+
+.blogPost {
+	width: 100%;
+}
+
+.recipe {
+	max-width: 600px;
+	background: #eeb;
+	border: 1px solid #888;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: space-between;
+}
+
+.recipeRow {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	justify-content: space-between;
+}
+
+.recipeContent {
+	width: 100%;
+}

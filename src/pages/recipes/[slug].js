@@ -7,32 +7,39 @@ import TakeShape from '../../providers/takeshape'
 import HtmlContent from '../../components/content'
 import baseTheme from '../../base.module.css'
 import theme from './recipe.module.css'
+let unified = require('unified')
+let markdown = require('remark-parse')
+let html = require('remark-html')
 
 export const recipeQuery = (slug) => `
-  query {
-    recipes: getRecipeList(filter: {term: {slug: "${slug}"}}) {
-      total
-      items {
-        _id
-        _contentTypeName
-        _enabledAt
-        title
-        tags {
-          name
-        }
-        deck
-        author {
-          _id
-          name
-          slug
-        }
-        featureImage {
-          path
-        }
-        bodyHtml
-      }
-    }
-  }
+	query {
+	  recipes: getRecipeList(filter: {term: {slug: "${slug}"}}) {
+		  items {
+			  _enabledAt
+			  author {
+				  biography
+				  name
+				  photo {
+					  sourceUrl
+				  }
+				  slug
+			  }
+			  blogPost
+			  cookTime
+			  deck
+			  featureImage {
+				  sourceUrl
+			  }
+			  prepTime
+			  recipe
+			  slug
+			  tags {
+				  name
+			  }
+			  title
+		  }
+	  }
+	}
 `
 
 export const recipeSlugsQuery = `
@@ -53,17 +60,41 @@ const RecipePage = ({data}) => {
   }
   const {
     _enabledAt,
-    title,
-    deck,
-    tags,
-    author,
-    bodyHtml
+	author
+	blogPost
+	cookTime
+	deck
+	featureImage
+	prepTime
+	recipe
+	slug
+	tags
+	title
   } = data.recipes.items[0];
   const date = new Date(_enabledAt)
+  const bodyHTML = `<div>HELLO WORLD</div>`;
+
+
+  blogPostHTML = unified()
+	.use(markdown)
+	.use(html)
+	.process(blogPost, err => {
+	  if (err) throw err
+	  return "md didn't parse"
+	})
+
+  recipeHTML = unified()
+  	.use(markdown)
+  	.use(html)
+  	.process(blogPost, err => {
+  	  if (err) throw err
+  	  return "md didn't parse"
+  	})
+
   return (
     <Fragment>
       <Head>
-        <title key="title">{title} / Recipes / Shape Blog</title>
+        <title key="title">{title} | The New Dynamic Recipe Book</title>
         <meta key="description" name="description" content={deck} />
       </Head>
       <header className={theme.recipeHeader}>
@@ -78,7 +109,18 @@ const RecipePage = ({data}) => {
           </div>
         </div>
       </header>
-      <HtmlContent bodyHtml={bodyHtml}/>
+	  <div className={theme.content}>
+	  	<div className={theme.blogPost}>{blogPostHTML}</div>
+
+		<div className={theme.recipe}>
+			<div className={theme.recipeRow}>
+				<span className={theme.recipeRowTitle}>{title}</span>
+				<span className={theme.recipeRowCookTime}>Cooks for {cookTime} minutes</span>
+				<span className={theme.recipeRowPrepTime}>Preps for {prepTime} minutes</span>
+			</div>
+			<div className={theme.recipeContent}>{recipeHTML}</div>
+		</div>
+      </div>
     </Fragment>
   )
 }

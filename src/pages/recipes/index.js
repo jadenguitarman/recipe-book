@@ -5,29 +5,34 @@ import RecipeList from '../../components/recipe-list'
 import baseTheme from '../../base.module.css'
 
 export const recipeListQuery = `
-  query {
-    recipes: getRecipeList(sort: [{field: "_enabledAt", order: "desc"}]) {
-      total
-      items {
-        _contentTypeName
-        _enabledAt
-        title
-        slug
-        tags {
-          name
-        }
-        deck
-        author {
-          name
-          slug
-        }
-        featureImage {
-          path
-        }
-        bodyHtml
-      }
-    }
-  }
+	query {
+	  recipes: getRecipeList(filter: {term: {slug: "${slug}"}}) {
+		  items {
+			  _enabledAt
+			  author {
+				  biography
+				  name
+				  photo {
+					  sourceUrl
+				  }
+				  slug
+			  }
+			  blogPost
+			  cookTime
+			  deck
+			  featureImage {
+				  sourceUrl
+			  }
+			  prepTime
+			  recipe
+			  slug
+			  tags {
+				  name
+			  }
+			  title
+		  }
+	  }
+	}
 `
 
 const RecipeListPage = (props) => {
