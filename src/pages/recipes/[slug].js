@@ -60,15 +60,15 @@ const RecipePage = ({data}) => {
   }
   const {
     _enabledAt,
-	author
-	blogPost
-	cookTime
-	deck
-	featureImage
-	prepTime
-	recipe
-	slug
-	tags
+	author,
+	blogPost,
+	cookTime,
+	deck,
+	featureImage,
+	prepTime,
+	recipe,
+	slug,
+	tags,
 	title
   } = data.recipes.items[0];
   const date = new Date(_enabledAt)
