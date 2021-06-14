@@ -118,7 +118,7 @@ const RecipePage = ({data}) => {
 				<span className={theme.recipeRowCookTime}>Cooks for {cookTime} minutes</span>
 				<span className={theme.recipeRowPrepTime}>Preps for {prepTime} minutes</span>
 			</div>
-			<div className={theme.recipeContent}>{...recipeHTML}</div>
+			<div className={theme.recipeContent}>{recipeHTML}</div>
 		</div>
       </div>
     </Fragment>
