@@ -8,8 +8,8 @@ import HtmlContent from '../../components/content'
 import baseTheme from '../../base.module.css'
 import theme from './recipe.module.css'
 let unified = require('unified')
-let markdown = require('remark-parse')
-let html = require('remark-html')
+let remarkMarkdown = require('remark-parse')
+let remarkReact = require('remark-react')
 
 export const recipeQuery = (slug) => `
 	query {
@@ -76,19 +76,19 @@ const RecipePage = ({data}) => {
 
 
   let blogPostHTML = unified()
-	.use(markdown)
-	.use(html)
+	.use(remarkMarkdown)
+	.use(remarkReact)
 	.processSync(blogPost, err => {
 	  if (err) throw err
-	  return "md didn't parse"
+	  return "<p>md didn't parse</p>"
 	})
 
   let recipeHTML = unified()
-  	.use(markdown)
-  	.use(html)
+  	.use(remarkMarkdown)
+  	.use(remarkReact)
   	.processSync(blogPost, err => {
   	  if (err) throw err
-  	  return "md didn't parse"
+  	  return "<p>md didn't parse</p>"
   	})
 
   return (
@@ -118,7 +118,7 @@ const RecipePage = ({data}) => {
 				<span className={theme.recipeRowCookTime}>Cooks for {cookTime} minutes</span>
 				<span className={theme.recipeRowPrepTime}>Preps for {prepTime} minutes</span>
 			</div>
-			<div className={theme.recipeContent}>{recipeHTML}</div>
+			<div className={theme.recipeContent}>{...recipeHTML}</div>
 		</div>
       </div>
     </Fragment>
